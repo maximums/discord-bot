@@ -23,6 +23,7 @@ class MusicCog(commands.Cog):
     def _play_next(self, client: VoiceClient):
         print('working!!!!')
         if len(self.music_queue) <=0:
+            self.is_playing = False
             return
 
         client.play(FFmpegPCMAudio(self.music_queue.pop()['source'], **FFMPEG_OPTIONS), after=lambda e: self._play_next(client))
@@ -40,6 +41,9 @@ class MusicCog(commands.Cog):
 
     @commands.command()
     async def play(self, ctx):
+        if self.is_playing:
+            return
+            
         voice_channel = ctx.message.author.voice
         if voice_channel is None:
             await ctx.send("{}, you need firts to connect to a voice channel.😅".format(ctx.message.author.name))
@@ -55,7 +59,7 @@ class MusicCog(commands.Cog):
             return
 
         song = self.music_queue.pop()
-        print(song)
+        self.is_playing = True
         v_client.play(FFmpegPCMAudio(song['source'], **FFMPEG_OPTIONS), after=lambda e: self._play_next( v_client))
 
     @commands.command()
