@@ -19,13 +19,17 @@ async def on_ready():
     text_channels = _get_channels_by_type(ChannelType.text)
     voice_channels = _get_channels_by_type(ChannelType.voice)
     await voice_channels[2].connect()
-    # await text_channels[1].send("Ready")
-    # await text_channels[1].send("Available commands:;zdarova, :akshan, :sion, :kayle\nEx.: type in any channel chat ':akshan'")
-    for channel in text_channels:
-        await channel.send("Ready for work😅")
-        await channel.send("Available commands: \n;akshan - Youtube video, \n;sion - Youtube video, \n;kayle - Youtube video "+
-        +";add 'video title' - adding song to playlist\n;play - stat play music from playlist[it should not be empty]\n ;hello - Hello message and img"
-        +"\nEx.: type in any channel chat ';akshan'")
+    await text_channels[1].send("Ready")
+    # for channel in text_channels:
+    #     await channel.send("Ready for work😅")
+    #     await channel.send("""Available commands:
+    #     ;akshan - Youtube video,
+    #     ;sion - Youtube video,
+    #     ;kayle - Youtube video "
+    #     ;add 'video title' - adding song from YouTube to playlist
+    #     ;play - stat play music from playlist[it should not be empty]
+    #     ;hello - Hello message and img"
+    #     Ex.: type in any channel chat ';akshan'""")
 
 @client.command(name="akshan")
 async def _akshan_diff(ctx):
