@@ -4,6 +4,12 @@ from discord.ext import commands
 
 _dirname = os.path.dirname(__file__)
 _IMG = os.path.join(_dirname, 'loli.gif')
+_HELLO_HELP = """
+              Usage example:
+              ;hello
+              Info:
+              Display: 'Hello' + user's name and a kawaii image
+              """
 
 class Greetings(commands.Cog):
     def __init__(self, bot):
@@ -17,9 +23,8 @@ class Greetings(commands.Cog):
             await channel.send(f'Welcome {member.mention}.')
             await channel.send(file=discord.File(_IMG))
 
-    @commands.command()
+    @commands.command(help=_HELLO_HELP)
     async def hello(self, ctx, *, member: discord.Member = None):
-        """Says hello"""
         member = member or ctx.author
         if self._last_member is None or self._last_member.id != member.id:
             await ctx.send(f'Hello {member.name}~')
